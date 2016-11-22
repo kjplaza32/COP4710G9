@@ -326,6 +326,17 @@ function createCursillo($dbh, $startDate, $endDate, $addressId, $title,
 	return $res;
 }
 
+function getWeekends($dbh) {
+	$sql = "select * from cursilloweekend";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute();
+
+	if($res == 1) {
+		return $stm->fetchAll();
+	}
+
+	return Array();
+}
 
 
 ?>
