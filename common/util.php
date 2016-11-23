@@ -369,5 +369,18 @@ function getCursillo($dbh, $eventId) {
 	}
 }
 
+function deleteCursillo($dbh, $weekend) {
+	$addressId = $weekend['AddressID'];
+	if($addressId) {
+		deleteAddress($dbh, $addressId);
+	}
+
+	$sql = "delete from cursilloweekend where EventID=?";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($weekend['EventID']));
+
+	return $res;
+}
+
 
 ?>
