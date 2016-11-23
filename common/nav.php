@@ -33,7 +33,7 @@
              Team Management <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#">Role List</a></li>
+            <li><a href="<?php makeLink('role/list.php') ?>">Role List</a></li>
             <li><a href="<?php makeLink('role/add.php') ?>">Create Role</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Team History</a></li>

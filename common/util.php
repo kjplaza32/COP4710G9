@@ -392,5 +392,19 @@ function createRole($dbh, $roleName, $isActive) {
 	return $res;
 }
 
+function getRoles($dbh) {
+	$sql = "select * from role";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute();
+
+	if($res == 1) {
+		$res = $stm->fetchAll();
+		if(count($res) > 0) {
+			return $res;
+		}
+	}
+
+	return Array();
+}
 
 ?>
