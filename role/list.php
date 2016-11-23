@@ -37,12 +37,12 @@
 					<td><?php echo $role['RoleName'] ?></td>
 					<td><?php echo $role['IsActive'] ? "Yes" : "No" ?></td>
 					<td>
-						<a href="update.php?id=<?php echo $parish['ParishName']; ?>" target="new">
+						<a href="update.php?id=<?php echo $role['RoleID']; ?>" target="new">
 							<button type="button" class="btn btn-success">Edit</button>
 						</a>
 					</td>
 					<td>
-						<a href="delete.php?id=<?php echo $parish['ParishName']; ?>" target="new">
+						<a href="delete.php?id=<?php echo $role['RoleID']; ?>" target="new">
 							<button type="button" class="btn btn-danger">Delete</button>
 						</a>
 					</td>

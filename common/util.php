@@ -407,4 +407,25 @@ function getRoles($dbh) {
 	return Array();
 }
 
+function getRole($dbh, $id) {
+	$sql = "select * from role where RoleID=?";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($id));
+
+	if($res == 1) {
+		$res = $stm->fetchAll();
+		if(count($res) > 0) {
+			return $res[0];
+		}
+	}
+}
+
+function updateRole($dbh, $id, $roleName, $isActive) {
+	$sql = "update role set RoleName=?, IsActive=$isActive where RoleID=?";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($roleName, $id));
+
+	return $res;
+}
+
 ?>
