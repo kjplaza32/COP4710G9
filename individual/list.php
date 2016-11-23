@@ -22,7 +22,8 @@
 
 	<div class="container">
 	<?php include('../common/nav.php'); ?>
-		<table>
+		<table class="table table-striped">
+
 			<thead>
 				<tr>
 					<th>First Name</th>

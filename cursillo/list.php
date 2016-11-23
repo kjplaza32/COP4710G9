@@ -22,7 +22,7 @@
 
 	<div class="container">
 	<?php include('../common/nav.php'); ?>
-		<table class="span12">
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>Number</th>
