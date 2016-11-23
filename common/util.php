@@ -428,4 +428,12 @@ function updateRole($dbh, $id, $roleName, $isActive) {
 	return $res;
 }
 
+function deleteRole($dbh, $role) {
+	$sql = "delete from role where RoleID=?";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($role["RoleID"]));
+
+	return $res;
+}
+
 ?>
