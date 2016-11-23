@@ -65,7 +65,14 @@
 				if(isset($_GET['delperson'])) {
 					$individualID = $_GET['delperson'];
 					if(!deleteAttendee($dbh, $individualID, $id)) {
-						print("Error deleting individual to cursillo");
+						print("Error deleting individual from cursillo");
+					}
+				}
+
+				if(isset($_GET['promoteperson'])) {
+					$individualID = $_GET['promoteperson'];
+					if(!promoteAttendee($dbh, $individualID, $id)) {
+						print("Error promoting individual");
 					}
 				}
 
@@ -79,6 +86,7 @@
 						<th>Name Tag</th>
 						<th>Phone Number</th>
 						<th>Parish</th>
+						<th>Promote</th>
 						<th>Remove</th>
 					</tr>
 				</thead>
@@ -91,6 +99,19 @@
 						<td><?php echo $individual['NameTag'] ?></td>
 						<td><?php echo $individual['Phone'] ?></td>
 						<td><?php echo $individual['ParishName'] ?></td>
+						<td>
+							<?php 
+								$link = "cursillo=" . $id . "&" . 
+										"promoteperson=" . $individual['IndividualID'];
+								$disabled = $individual['IndividualType'] == "TEAM";
+							?>
+							<a href="registered.php?<?php echo $link; ?>" target="new">
+								<button type="button" class="btn btn-success"
+									<?php if($disabled) echo "disabled" ?>>
+									Promote to Team Member
+								</button>
+							</a>
+						</td>
 						<td>
 							<?php 
 								$link = "cursillo=" . $id . "&" . 

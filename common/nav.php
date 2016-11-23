@@ -11,9 +11,9 @@
           <ul class="dropdown-menu">
             <li><a href="<?php makeLink('cursillo/add.php') ?>">Create Cursillo</a></li>
             <li><a href="<?php makeLink('cursillo/list.php') ?>">Cursillo List</a></li>
-            <li><a href="<?php makeLink('cursillo/registered.php') ?>">Attendee List</a></li>
+            <li><a href="<?php makeLink('cursillo/registered.php') ?>">Candidate List</a></li>
             <li><a href="<?php makeLink('cursillo/registration.php') ?>">
-              Cursillo Registration
+              Candidate Registration
             </a></li>
             <li role="separator" class="divider"></li>
             <li><a href="<?php makeLink('parish/list.php') ?>">Parish List</a></li>
@@ -27,7 +27,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a href="<?php makeLink('individual/add.php') ?>">Create Candidate</a></li>
-            <li><a href="<?php makeLink('individual/list.php') ?>">Individual List</a></li>
+            <li><a href="<?php makeLink('individual/list.php') ?>">Cursillistas</a></li>
             <li><a href="#"></a></li>
           </ul>
         </li>

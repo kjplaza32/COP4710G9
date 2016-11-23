@@ -511,6 +511,8 @@ function getPotentialCandidates($dbh, $gender, $eventID) {
 			return $res;
 		}
 	}
+
+	return array();
 }
 
 function addAttendee($dbh, $candidateID, $cursilloID) {
@@ -544,6 +546,22 @@ function getAttendees($dbh, $cursilloID) {
 			return $res;
 		}
 	}
+
+	return array();
+}
+
+function promoteAttendee($dbh, $candidateID, $cursilloID) {
+	$sql = "insert into teammember (TeamMemberID, FirstCursillo) values (?,?)";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($candidateID, $cursilloID));
+
+	if($res) {
+		$sql = "update individual set IndividualType='TEAM' where IndividualID=?";
+		$stm = $dbh->prepare($sql);
+		$res = $stm->execute(array($candidateID));
+	}
+
+	return $res;
 }
 
 ?>
