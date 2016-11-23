@@ -41,9 +41,9 @@ CREATE TABLE `individual` (
   KEY `AddressID_idx` (`AddressID`),
   KEY `ParishName_idx` (`ParishName`),
   KEY `SponsorID_Individual_idx` (`SponsorID`),
-  CONSTRAINT `AddressID_Individual` FOREIGN KEY (`AddressID`) REFERENCES `address` (`AddressID`) ON UPDATE CASCADE ON DELETE SET NULL,
-  CONSTRAINT `ParishName_Individual` FOREIGN KEY (`ParishName`) REFERENCES `parish` (`ParishName`) ON UPDATE CASCADE,
-  CONSTRAINT `SponsorID_Individual` FOREIGN KEY (`SponsorID`) REFERENCES `individual` (`IndividualID`) ON UPDATE CASCADE
+  CONSTRAINT `AddressID_Individual` FOREIGN KEY (`AddressID`) REFERENCES `address` (`AddressID`) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT `ParishName_Individual` FOREIGN KEY (`ParishName`) REFERENCES `parish` (`ParishName`) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT `SponsorID_Individual` FOREIGN KEY (`SponsorID`) REFERENCES `individual` (`IndividualID`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `cursilloweekend` (
