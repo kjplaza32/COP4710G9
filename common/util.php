@@ -382,5 +382,58 @@ function deleteCursillo($dbh, $weekend) {
 	return $res;
 }
 
+/*				Role Stuff 			*/
+
+function createRole($dbh, $roleName, $isActive) {
+	$sql = "insert into role (RoleName, IsActive) values (?, $isActive)";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($roleName));
+
+	return $res;
+}
+
+function getRoles($dbh) {
+	$sql = "select * from role";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute();
+
+	if($res == 1) {
+		$res = $stm->fetchAll();
+		if(count($res) > 0) {
+			return $res;
+		}
+	}
+
+	return Array();
+}
+
+function getRole($dbh, $id) {
+	$sql = "select * from role where RoleID=?";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($id));
+
+	if($res == 1) {
+		$res = $stm->fetchAll();
+		if(count($res) > 0) {
+			return $res[0];
+		}
+	}
+}
+
+function updateRole($dbh, $id, $roleName, $isActive) {
+	$sql = "update role set RoleName=?, IsActive=$isActive where RoleID=?";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($roleName, $id));
+
+	return $res;
+}
+
+function deleteRole($dbh, $role) {
+	$sql = "delete from role where RoleID=?";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($role["RoleID"]));
+
+	return $res;
+}
 
 ?>

@@ -62,3 +62,10 @@ CREATE TABLE `cursilloweekend` (
   KEY `AddressID_idx` (`AddressID`),
   CONSTRAINT `AddressID` FOREIGN KEY (`AddressID`) REFERENCES `address` (`AddressID`) ON UPDATE CASCADE ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `role` (
+  `RoleID` int(11) NOT NULL AUTO_INCREMENT,
+  `RoleName` varchar(128) NOT NULL,
+  `IsActive` bit(1) DEFAULT 1,
+  PRIMARY KEY (`RoleID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
