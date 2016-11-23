@@ -338,5 +338,36 @@ function getWeekends($dbh) {
 	return Array();
 }
 
+function updateCursillo($dbh, $eventId, $startDate, $endDate, $addressId, 
+							  $eventName, $gender, $description, $notes, $photo) {
+	$sql = "update cursilloweekend set Start=?,
+									   End=?,
+									   AddressID=?,
+									   EventName=?,
+									   Gender=?,
+									   Description=?,
+									   Notes=?,
+									   PhotoUrl=?
+			where EventID=?";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($startDate, $endDate, $addressId, $eventName, $gender,
+							   $description, $notes, $photo, $eventId));
+
+	return $res;
+}
+
+function getCursillo($dbh, $eventId) {
+	$sql = "select * from cursilloweekend where EventID=?";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($eventId));
+
+	if($res == 1) {
+		$res = $stm->fetchAll();
+		if(count($res) == 1) {
+			return $res[0];
+		}
+	}
+}
+
 
 ?>

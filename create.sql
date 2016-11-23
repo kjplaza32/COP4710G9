@@ -50,8 +50,8 @@ CREATE TABLE `individual` (
 
 CREATE TABLE `cursilloweekend` (
   `EventID` int(11) NOT NULL AUTO_INCREMENT,
-  `Start` datetime DEFAULT NULL,
-  `End` datetime DEFAULT NULL,
+  `Start` date DEFAULT NULL,
+  `End` date DEFAULT NULL,
   `AddressID` int(11) DEFAULT NULL,
   `EventName` varchar(128) DEFAULT NULL,
   `Gender` enum('MALE','FEMALE') DEFAULT NULL,
