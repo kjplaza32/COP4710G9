@@ -167,6 +167,30 @@ function getIndividuals($dbh) {
 	return $res;
 }
 
+function searchIndividuals($dbh, $searchParams) {
+	$params = array();
+	$sql = "select * from individual where ";
+
+	foreach ($searchParams as $param => $value) {
+		$sql .= $param . "=? and ";
+		$params[] = $value;
+	}
+
+	$sql = substr($sql, 0, -5);
+	
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute($params);
+
+	if($res == 1) {
+		$res = $stm->fetchAll();
+		if(count($res) > 0) {
+			return $res;
+		}
+	}
+
+	return array();
+}
+
 function findSponsor($dbh, $firstName, $lastName) {
 	$sql = "select * from individual 
 				where FirstName=? and LastName=? and IndividualType='TEAM'";
@@ -177,7 +201,7 @@ function findSponsor($dbh, $firstName, $lastName) {
 	if($res == 1) {
 		$res = $stm->fetchAll();
 		if(count($res) > 0) {
-			return $res[0]["IndividualID"];			
+			return $res[0]["IndividualID"];
 		}
 	}
 
@@ -335,7 +359,7 @@ function getWeekends($dbh) {
 		return $stm->fetchAll();
 	}
 
-	return Array();
+	return array();
 }
 
 function updateCursillo($dbh, $eventId, $startDate, $endDate, $addressId, 
@@ -404,7 +428,7 @@ function getRoles($dbh) {
 		}
 	}
 
-	return Array();
+	return array();
 }
 
 function getRole($dbh, $id) {

@@ -17,7 +17,17 @@
 	</head>
 <body>
 	<?php
-		$individuals = getIndividuals($dbh);
+		$params = array();
+
+		if(isset($_GET['gender'])) {
+			$params['Gender'] = $_GET['gender'];
+		}
+
+		if(isset($_GET['type'])) {
+			$params['IndividualType'] = $_GET['type'];
+		}
+
+		$individuals = searchIndividuals($dbh, $params);
 	?>
 
 	<div class="container">
