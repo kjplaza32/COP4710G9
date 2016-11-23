@@ -86,7 +86,7 @@ function updateIndividual($dbh, $individualId, $addressID, $first, $last, $gende
 							      ParishName=?,
 							      Birthday=?,
 							      IsMarried=$isMarried,
-							      HasSpouseAttended=$hasSpouseAttended,
+							      HasSpouseAttended=$hasSpouseAttended
 			where IndividualId=?";
 	
 	$stm = $dbh->prepare($sql);
@@ -466,6 +466,21 @@ function getRoles($dbh) {
 	return array();
 }
 
+function getActiveRoles($dbh) {
+	$sql = "select * from role where IsActive";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute();
+
+	if($res == 1) {
+		$res = $stm->fetchAll();
+		if(count($res) > 0) {
+			return $res;
+		}
+	}
+
+	return array();
+}
+
 function getRole($dbh, $id) {
 	$sql = "select * from role where RoleID=?";
 	$stm = $dbh->prepare($sql);
@@ -560,6 +575,79 @@ function promoteAttendee($dbh, $candidateID, $cursilloID) {
 		$stm = $dbh->prepare($sql);
 		$res = $stm->execute(array($candidateID));
 	}
+
+	return $res;
+}
+
+
+/*		Team Members		*/
+function getPotentialTeamMembers($dbh, $gender, $eventID) {
+	$sql = "select * from individual where Gender=? and IndividualType='TEAM'
+			and IndividualID not in (
+				select TeamMemberID from roleassignment where EventID=?)";
+
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($gender, $eventID));
+
+	if($res == 1) {
+		$res = $stm->fetchAll();
+		if(count($res) > 0) {
+			return $res;
+		}
+	}
+
+	return array();
+}
+
+function getUnassignedRoles($dbh, $eventID) {
+	$sql = "select * from role
+			where IsActive and RoleID not in (
+				select RoleID from roleassignment where EventID=?)";
+
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($eventID));
+
+	if($res == 1) {
+		$res = $stm->fetchAll();
+		if(count($res) > 0) {
+			return $res;
+		}
+	}
+
+	return array();
+}
+
+function getRoleAssignments($dbh, $eventID) {
+	$sql = "select * from role as r left join roleassignment as ra 
+				on r.RoleID=ra.RoleID
+				join individual as i on i.IndividualID=ra.TeamMemberID
+				where ra.EventID=? or ra.EventID IS NULL and r.IsActive";
+
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($eventID));
+
+	if($res == 1) {
+		$res = $stm->fetchAll();
+		if(count($res) > 0) {
+			return $res;
+		}
+	}
+
+	return array();
+}
+
+function createRoleAssignment($dbh, $teamMemberID, $roleID, $eventID) {
+	$sql = "insert into roleassignment (TeamMemberID, RoleID, EventID) values (?,?,?)";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($teamMemberID, $roleID, $eventID));
+
+	return $res;
+}
+
+function deleteRoleAssignment($dbh, $teamMemberID, $roleID, $eventID) {
+	$sql = "delete from roleassignment where TeamMemberID=? and RoleID=? and EventID=?";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($teamMemberID, $roleID, $eventID));
 
 	return $res;
 }
