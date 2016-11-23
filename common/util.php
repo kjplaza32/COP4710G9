@@ -310,4 +310,22 @@ function deleteParish($dbh, $parish) {
 	return $res;
 }
 
+
+/*				Cursillo Stuff 			*/
+
+function createCursillo($dbh, $startDate, $endDate, $addressId, $title, 
+						$gender, $description, $notes, $photo) {
+	$sql = "insert into cursilloweekend 
+				(Start, End, AddressID, EventName, Gender, Notes, Description, PhotoUrl)
+			values (?,?,?,?,?,?,?,?)";
+
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($startDate, $endDate, $addressId, $title, 
+							   $gender, $description, $notes, $photo));
+
+	return $res;
+}
+
+
+
 ?>

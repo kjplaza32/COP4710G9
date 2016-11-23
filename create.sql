@@ -48,5 +48,17 @@ CREATE TABLE `individual` (
   CONSTRAINT `SponsorID_Individual` FOREIGN KEY (`SponsorID`) REFERENCES `individual` (`IndividualID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
+CREATE TABLE `cursilloweekend` (
+  `EventID` int(11) NOT NULL AUTO_INCREMENT,
+  `Start` datetime DEFAULT NULL,
+  `End` datetime DEFAULT NULL,
+  `AddressID` int(11) DEFAULT NULL,
+  `EventName` varchar(128) DEFAULT NULL,
+  `Gender` enum('MALE','FEMALE') DEFAULT NULL,
+  `Notes` varchar(1024) DEFAULT NULL,
+  `Description` varchar(1024) DEFAULT NULL,
+  `PhotoUrl` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`EventID`),
+  KEY `AddressID_idx` (`AddressID`),
+  CONSTRAINT `AddressID` FOREIGN KEY (`AddressID`) REFERENCES `address` (`AddressID`) ON UPDATE CASCADE ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
