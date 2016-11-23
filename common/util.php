@@ -326,6 +326,61 @@ function createCursillo($dbh, $startDate, $endDate, $addressId, $title,
 	return $res;
 }
 
+function getWeekends($dbh) {
+	$sql = "select * from cursilloweekend";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute();
+
+	if($res == 1) {
+		return $stm->fetchAll();
+	}
+
+	return Array();
+}
+
+function updateCursillo($dbh, $eventId, $startDate, $endDate, $addressId, 
+							  $eventName, $gender, $description, $notes, $photo) {
+	$sql = "update cursilloweekend set Start=?,
+									   End=?,
+									   AddressID=?,
+									   EventName=?,
+									   Gender=?,
+									   Description=?,
+									   Notes=?,
+									   PhotoUrl=?
+			where EventID=?";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($startDate, $endDate, $addressId, $eventName, $gender,
+							   $description, $notes, $photo, $eventId));
+
+	return $res;
+}
+
+function getCursillo($dbh, $eventId) {
+	$sql = "select * from cursilloweekend where EventID=?";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($eventId));
+
+	if($res == 1) {
+		$res = $stm->fetchAll();
+		if(count($res) == 1) {
+			return $res[0];
+		}
+	}
+}
+
+function deleteCursillo($dbh, $weekend) {
+	$addressId = $weekend['AddressID'];
+	if($addressId) {
+		deleteAddress($dbh, $addressId);
+	}
+
+	$sql = "delete from cursilloweekend where EventID=?";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($weekend['EventID']));
+
+	return $res;
+}
 
 
 ?>

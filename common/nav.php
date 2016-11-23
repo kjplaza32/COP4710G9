@@ -9,8 +9,8 @@
              Cursillo Management <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#">Create Cursillo</a></li>
-            <li><a href="#">Cursillo List</a></li>
+            <li><a href="<?php makeLink('cursillo/add.php') ?>">Create Cursillo</a></li>
+            <li><a href="<?php makeLink('cursillo/list.php') ?>">Cursillo List</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="<?php makeLink('parish/list.php') ?>">Parish List</a></li>
             <li><a href="<?php makeLink('parish/add.php') ?>">Create Parish</a></li>
