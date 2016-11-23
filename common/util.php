@@ -382,5 +382,15 @@ function deleteCursillo($dbh, $weekend) {
 	return $res;
 }
 
+/*				Role Stuff 			*/
+
+function createRole($dbh, $roleName, $isActive) {
+	$sql = "insert into role (RoleName, IsActive) values (?, $isActive)";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($roleName));
+
+	return $res;
+}
+
 
 ?>

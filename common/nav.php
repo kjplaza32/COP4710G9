@@ -34,7 +34,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a href="#">Role List</a></li>
-            <li><a href="#">Create Role</a></li>
+            <li><a href="<?php makeLink('role/add.php') ?>">Create Role</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Team History</a></li>
             <li><a href="#">Build a Team</a></li>
