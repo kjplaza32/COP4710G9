@@ -45,10 +45,29 @@ function validateDate($date)
 }
 
 /*			Individual Stuff 				*/
+function getTeamMember($dbh, $id) {
+	$sql = "select * from teammember where TeamMemberID=?";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($id));
+
+	if($res == 1) {
+		$res = $stm->fetchAll();
+		if(count($res) > 0) {
+			return $res[0];
+		}
+	}
+}
+
+function createCandidate($dbh, $id) {
+	$sql = "insert into candidate (CandidateID) values (?)";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($id));
+}
+
 function updateIndividual($dbh, $individualId, $addressID, $first, $last, $gender, 
 						  $spousefirst, $spouselast, $pastorfirst, $pastorlast, $email, 
 						  $phone, $nametag, $occupation, $sponsorId, $parishName, 
-						  $birthday, $isMarried, $hasSpouseAttended, $type) {
+						  $birthday, $isMarried, $hasSpouseAttended) {
 
 	// TODO: Create Team/candidate entries
 	$sql = "update individual set AddressID=?,
@@ -68,7 +87,6 @@ function updateIndividual($dbh, $individualId, $addressID, $first, $last, $gende
 							      Birthday=?,
 							      IsMarried=$isMarried,
 							      HasSpouseAttended=$hasSpouseAttended,
-							      IndividualType=?
 			where IndividualId=?";
 	
 	$stm = $dbh->prepare($sql);
@@ -87,7 +105,6 @@ function updateIndividual($dbh, $individualId, $addressID, $first, $last, $gende
    							   $sponsorId,
 							   $parishName,
 							   $birthday,
-							   $type,
 							   $individualId));
 	return $res;
 }
@@ -136,6 +153,11 @@ function createIndividual($dbh, $addressId, $first, $last, $gender, $spousefirst
 							   $parishName,
 							   $birthday,
 							   $type));
+
+	if($res && $type="CANDIDATE") {
+		createCandidate($dbh, $dbh->lastInsertId());
+	}
+
 	return $res;
 }
 
@@ -177,7 +199,7 @@ function searchIndividuals($dbh, $searchParams) {
 	}
 
 	$sql = substr($sql, 0, -5);
-	
+
 	$stm = $dbh->prepare($sql);
 	$res = $stm->execute($params);
 
@@ -362,6 +384,19 @@ function getWeekends($dbh) {
 	return array();
 }
 
+function searchWeekends($dbh, $after) {
+	$sql = "select * from cursilloweekend where Start>?";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($after));
+
+	if($res == 1) {
+		return $stm->fetchAll();
+	}
+
+	return array();
+
+}
+
 function updateCursillo($dbh, $eventId, $startDate, $endDate, $addressId, 
 							  $eventName, $gender, $description, $notes, $photo) {
 	$sql = "update cursilloweekend set Start=?,
@@ -458,6 +493,57 @@ function deleteRole($dbh, $role) {
 	$res = $stm->execute(array($role["RoleID"]));
 
 	return $res;
+}
+
+/*		Candidate Attendence		*/
+
+function getPotentialCandidates($dbh, $gender, $eventID) {
+	$sql = "select * from individual where Gender=? 
+			and IndividualID not in (
+				select CandidateID from candidateattendee where EventID=?)";
+
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($gender, $eventID));
+
+	if($res == 1) {
+		$res = $stm->fetchAll();
+		if(count($res) > 0) {
+			return $res;
+		}
+	}
+}
+
+function addAttendee($dbh, $candidateID, $cursilloID) {
+	$sql = "insert into candidateattendee (CandidateID, EventID) values (?,?)";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($candidateID, $cursilloID));
+
+	return $res;
+}
+
+function deleteAttendee($dbh, $candidateID, $cursilloID) {
+	$sql = "delete from candidateattendee where CandidateID=? and EventID=?";
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($candidateID, $cursilloID));
+
+	return $res;
+}
+
+function getAttendees($dbh, $cursilloID) {
+	$sql = "select * from individual join candidate as c 
+						on IndividualID=c.CandidateID
+									 natural join candidateattendee as ca 
+						where ca.EventID=?";
+	
+	$stm = $dbh->prepare($sql);
+	$res = $stm->execute(array($cursilloID));
+
+	if($res == 1) {
+		$res = $stm->fetchAll();
+		if(count($res) > 0) {
+			return $res;
+		}
+	}
 }
 
 ?>
