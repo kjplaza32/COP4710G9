@@ -1,10 +1,8 @@
 <?php
 	error_reporting(E_ALL);
 	ini_set('display_errors', 'On');
-
 	include('../common/util.php');
 	$dbh = connectToDB();
-
 ?>
 
 <!DOCTYPE html>
@@ -18,20 +16,35 @@
 <body>
 	<?php
 		$params = array();
-
 		if(isset($_GET['gender'])) {
 			$params['Gender'] = $_GET['gender'];
 		}
-
 		if(isset($_GET['type'])) {
 			$params['IndividualType'] = $_GET['type'];
 		}
-
+	
+		if(isset($_GET['attending'])) {
+			$params['IndividualType'] = $_GET['attending'];
+		}
+	
 		$individuals = searchIndividuals($dbh, $params);
 	?>
 
+	
 	<div class="container">
 	<?php include('../common/nav.php'); ?>
+		<form>
+		  	<input type="radio" name="gender" value="male" checked> Male<br>
+  			<input type="radio" name="gender" value="female"> Female<br>
+  			<input type="radio" name="none" value="all"> All
+		</form>
+		
+		<form>
+		  	<input type="radio" name="attending" value="yes" checked> yes<br>
+  			<input type="radio" name="attending" value="no"> no<br>
+			<input type="submit" value="Submit">
+		</form>
+		
 		<table class="table table-striped">
 
 			<thead>
