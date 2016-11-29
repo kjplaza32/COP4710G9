@@ -13,27 +13,27 @@
 	</head>
 <body>
 	<a href="add.php" target="new">
-		<button type="button" class="btn btn-success">Cursillos</button>
+		<button type="button" class="btn btn-success">add</button>
 	</a>
       
 	<a href="delete.php" target="new">
-		<button type="button" class="btn btn-success">Individuals</button>
+		<button type="button" class="btn btn-success">delete</button>
 	</a>
       
 	<a href="list.php" target="new">
-		<button type="button" class="btn btn-success">roles</button>
+		<button type="button" class="btn btn-success">list</button>
 	</a>
       
 	<a href="registered.php" target="new">
-		<button type="button" class="btn btn-success">talks</button>
+		<button type="button" class="btn btn-success">registered</button>
 	</a>
 	
 	<a href="registrations.php" target="new">
-		<button type="button" class="btn btn-success">parishes</button>
+		<button type="button" class="btn btn-success">registrations</button>
 	</a>
   
   <a href="update.php" target="new">
-		<button type="button" class="btn btn-success">parishes</button>
+		<button type="button" class="btn btn-success">update</button>
 	</a>
   
 _END;
