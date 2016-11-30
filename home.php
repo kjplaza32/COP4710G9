@@ -12,19 +12,27 @@
 		<link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	</head>
 <body>
-      <a href="cursillos.php" target="new">
-								<button type="button" class="btn btn-success">Cursillos</button>
-			</a>
+	<a href="cursillos.php" target="new">
+		<button type="button" class="btn btn-success">Cursillos</button>
+	</a>
       
-      <a href="individuals.php" target="new">
-								<button type="button" class="btn btn-success">Individuals</button>
-			</a>
+	<a href="individuals.php" target="new">
+		<button type="button" class="btn btn-success">Individuals</button>
+	</a>
       
-      <a href="roles.php" target="new">
-								<button type="button" class="btn btn-success">roles</button>
-			</a>
+	<a href="roles.php" target="new">
+		<button type="button" class="btn btn-success">roles</button>
+	</a>
       
-      <a href="talks.php" target="new">
-								<button type="button" class="btn btn-success">talks</button>
-			</a>
+	<a href="talks.php" target="new">
+		<button type="button" class="btn btn-success">talks</button>
+	</a>
+	
+	<a href="parishes.php" target="new">
+		<button type="button" class="btn btn-success">parishes</button>
+	</a>
+	
+	<a href="teams.php" target="new">
+		<button type="button" class="btn btn-success">teams</button>
+	</a>
 _END;
